@@ -13,16 +13,12 @@ namespace hxz {
         switch(Logger::_timeMode) {
             case HXZ_LOGGER_TIME:
                 return Time::GetTime();
-                break;
             case HXZ_LOGGER_DATE:
                 return Time::GetDate();
-                break;
             case HXZ_LOGGER_DATETIME:
                 return Time::Now();
-                break;
             default:
                 return Time::Now();
-                break;
         }
     }
 
