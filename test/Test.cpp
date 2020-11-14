@@ -1,3 +1,5 @@
+// Copyright(c) 2020-present, Muhammad Usman. (https://github.com/Hazeral)
+// Distributed under the MIT License (http://opensource.org/licenses/MIT)
 #include "../src/Logger.h"
 
 // void timeTest() {

@@ -4,7 +4,7 @@ A lightweight and colourful logger for C++ programs with functionality for loggi
 
 ## Installation
 
-You can use either the batch files to either compile to DLL or a static library, you could also simply include the source files.
+You can use the batch files to either compile to DLL or a static library, you could also simply include the source files.
 
 ## Usage
 
