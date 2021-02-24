@@ -22,6 +22,7 @@
 #include "FileOutput.h"
 
 #include <string>
+#include <map>
 #include <iostream>
 
 #ifdef __cplusplus
@@ -42,6 +43,8 @@ namespace hxz {
 
         private:
         std::string GetTime();
+        void Log(std::string type, std::string text);
+        std::map<std::string, std::string(*)(std::string)> _colours;
         int _timeMode;
         bool _logToFile;
         std::string _logDir;

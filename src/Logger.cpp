@@ -7,6 +7,14 @@ namespace hxz {
         Logger::_timeMode = timeMode;
         Logger::_logToFile = logToFile;
         Logger::_logDir = logDir;
+
+        Logger::_colours = {
+            {"Info", &Colour::Cyan},
+            {"Warn", &Colour::Yellow},
+            {"Debug", &Colour::Blue},
+            {"Success", &Colour::Green},
+            {"Error", &Colour::Red}
+        };
     }
 
     std::string Logger::GetTime() {
@@ -22,48 +30,20 @@ namespace hxz {
         }
     }
 
-    void Logger::Info(std::string text) {
-        if (Logger::_logToFile) FileOutput::LogToFile(Logger::_logDir, "[ " + Logger::GetTime() + " ] " + "[ Info ] " + text);
+    void Logger::Log(std::string type, std::string text) {
+        std::string(*colour)(std::string) = _colours.find(type)->second;
+
+        if (Logger::_logToFile) FileOutput::LogToFile(Logger::_logDir, "[ " + Logger::GetTime() + " ] " + "[ " + type + " ] " + text);
         
-        std::string time = Colour::Cyan("[ ") + Logger::GetTime() + Colour::Cyan(" ]");
-        std::string title = Colour::Cyan("[ Info ]");
+        std::string time = colour("[ ") + Logger::GetTime() + colour(" ]");
+        std::string title = colour("[ " + type + " ]");
 
         std::cout << time + ' ' + title + ' ' + text + '\n';
     }
 
-    void Logger::Warn(std::string text) {
-        if (Logger::_logToFile) FileOutput::LogToFile(Logger::_logDir, "[ " + Logger::GetTime() + " ] " + "[ Warning ] " + text);
-
-        std::string time = Colour::Yellow("[ ") + Logger::GetTime() + Colour::Yellow(" ]");
-        std::string title = Colour::Yellow("[ Warning ]");
-
-        std::cout << time + ' ' + title + ' ' + text + '\n';
-    }
-
-    void Logger::Debug(std::string text) {
-        if (Logger::_logToFile) FileOutput::LogToFile(Logger::_logDir, "[ " + Logger::GetTime() + " ] " + "[ Debug ] " + text);
-
-        std::string time = Colour::Blue("[ ") + Logger::GetTime() + Colour::Blue(" ]");
-        std::string title = Colour::Blue("[ Debug ]");
-
-        std::cout << time + ' ' + title + ' ' + text + '\n';
-    }
-
-    void Logger::Success(std::string text) {
-        if (Logger::_logToFile) FileOutput::LogToFile(Logger::_logDir, "[ " + Logger::GetTime() + " ] " + "[ Success ] " + text);
-
-        std::string time = Colour::Green("[ ") + Logger::GetTime() + Colour::Green(" ]");
-        std::string title = Colour::Green("[ Success ]");
-
-        std::cout << time + ' ' + title + ' ' + text + '\n';
-    }
-
-    void Logger::Error(std::string text) {
-        if (Logger::_logToFile) FileOutput::LogToFile(Logger::_logDir, "[ " + Logger::GetTime() + " ] " + "[ Error ] " + text);
-
-        std::string time = Colour::Red("[ ") + Logger::GetTime() + Colour::Red(" ]");
-        std::string title = Colour::Red("[ Error ]");
-
-        std::cout << time + ' ' + title + ' ' + text + '\n';
-    }
+    void Logger::Info(std::string text) { Log("Info", text); }
+    void Logger::Warn(std::string text) { Log("Warn", text); }
+    void Logger::Debug(std::string text) { Log("Debug", text); }
+    void Logger::Success(std::string text) { Log("Success", text); }
+    void Logger::Error(std::string text) { Log("Error", text); }
 }
